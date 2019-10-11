@@ -11,9 +11,10 @@ import com.pvcorazza.gitusers.network.GithubProperty
 
 // Adapter for RecyclerView of Users of Github
 
-class GithubListAdapter (private val clickListener: UserListener) : ListAdapter<GithubProperty, GithubListAdapter.GithubPropertyViewHolder>(
-    DiffCallback
-) {
+class GithubListAdapter(private val clickListener: UserListener) :
+    ListAdapter<GithubProperty, GithubListAdapter.GithubPropertyViewHolder>(
+        DiffCallback
+    ) {
 
     class GithubPropertyViewHolder(private var binding: ListItemUserBinding) :
         RecyclerView.ViewHolder(binding.root) {

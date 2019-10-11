@@ -47,7 +47,7 @@ object GithubApi {
         .build()
 
 
-val retrofitService: GithubApiService by lazy {
+    val retrofitService: GithubApiService by lazy {
         retrofit.create(GithubApiService::class.java)
     }
 }

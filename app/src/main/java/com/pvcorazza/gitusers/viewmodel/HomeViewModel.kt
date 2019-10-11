@@ -4,10 +4,13 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.pvcorazza.gitusers.utils.GithubApiStatus
 import com.pvcorazza.gitusers.network.GithubApi
 import com.pvcorazza.gitusers.network.GithubProperty
-import kotlinx.coroutines.*
+import com.pvcorazza.gitusers.utils.GithubApiStatus
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 
 // ViewModel class with livedata
 class HomeViewModel : ViewModel() {

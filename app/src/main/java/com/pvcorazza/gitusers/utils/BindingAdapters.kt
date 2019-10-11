@@ -33,7 +33,7 @@ fun bindImage(imgView: ImageView, imgUrl: String?) {
 }
 
 @BindingAdapter("listDataUsers")
-fun bindRecyclerViewPokemon(recyclerView: RecyclerView, data: List<GithubProperty>?) {
+fun bindRecyclerView(recyclerView: RecyclerView, data: List<GithubProperty>?) {
     val adapter = recyclerView.adapter as GithubListAdapter
     adapter.submitList(data)
 }

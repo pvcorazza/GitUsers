@@ -28,7 +28,8 @@ class DetailsFragment : Fragment() {
 
         // Initialize a ViewModel
         val viewModel = ViewModelProviders.of(this, DetailsViewModelFactory(id!!)).get(
-            DetailsViewModel::class.java)
+            DetailsViewModel::class.java
+        )
 
         val binding = FragmentDetailsBinding.inflate(inflater)
 
