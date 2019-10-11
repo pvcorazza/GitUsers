@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        >
+
+    <data>
+
+        <variable
+                name="viewModel"
+                type="com.pvcorazza.gitusers.viewmodel.HomeViewModel"/>
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            tools:context=".intro.HomeFragment"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent">
+
+         <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_users"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+             android:padding="4dp"
+                 android:clipToPadding="false"
+                android:scrollbars="vertical"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                app:spanCount="4"
+                app:listDataUsers="@{viewModel.githubProperties}"
+                tools:listitem="@layout/list_item_user"/>
+
+        <ProgressBar
+                android:indeterminate="true"
+                android:id="@+id/status_progress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:apiProgressStatus="@{viewModel.status}"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
