@@ -31,6 +31,7 @@ class DetailsFragment : Fragment() {
             DetailsViewModel::class.java
         )
 
+        //Inflate layout for DataBinding
         val binding = FragmentDetailsBinding.inflate(inflater)
 
         // Allows Data Binding to Observe LiveData with the lifecycle of this Fragment
@@ -39,6 +40,7 @@ class DetailsFragment : Fragment() {
         // Giving the binding access to the DetailsViewModel
         binding.viewModel = viewModel
 
+        // Observe LiveData
         viewModel.githubUserDetails.observe(this, Observer {
             binding.githubUserDetails = it
         })

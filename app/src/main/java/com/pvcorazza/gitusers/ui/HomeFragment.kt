@@ -27,6 +27,7 @@ class HomeFragment : Fragment() {
 
         setHasOptionsMenu(true)
 
+        //Inflate layout for DataBinding
         val binding = FragmentHomeBinding.inflate(inflater)
 
         // Allows Data Binding to Observe LiveData with the lifecycle of this Fragment
@@ -35,6 +36,7 @@ class HomeFragment : Fragment() {
         // Giving the binding access to the GithubViewModel
         binding.viewModel = viewModel
 
+        // Go to DetailsFragment when item of RecyclerView is clicked
         val clickListener = UserListener {
             findNavController().navigate(
                 HomeFragmentDirections.actionHomeFragmentToDetailsFragment(
@@ -43,6 +45,7 @@ class HomeFragment : Fragment() {
             )
         }
 
+        // Set adapter to RecyclerView, with listener parameter
         binding.recyclerUsers.adapter = GithubListAdapter(clickListener)
 
         return binding.root

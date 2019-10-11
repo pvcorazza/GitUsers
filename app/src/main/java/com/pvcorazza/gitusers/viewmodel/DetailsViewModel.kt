@@ -18,6 +18,7 @@ class DetailsViewModel(id: Int) : ViewModel() {
 
     /* Variables for data binding */
     private val _status = MutableLiveData<GithubApiStatus>()
+
     val status: LiveData<GithubApiStatus>
         get() = _status
 
@@ -45,7 +46,6 @@ class DetailsViewModel(id: Int) : ViewModel() {
             try {
                 _githubUserDetails.value = getGithubUserDetailsDeferred.await()
                 _status.value = GithubApiStatus.DONE
-                Log.d("USERDETAILS", _githubUserDetails.value.toString())
             } catch (e: Exception) {
                 _status.value = GithubApiStatus.ERROR
                 e.printStackTrace()
@@ -58,7 +58,6 @@ class DetailsViewModel(id: Int) : ViewModel() {
         super.onCleared()
         viewModelJob.cancel()
     }
-
 }
 
 class DetailsViewModelFactory(val id: Int) : ViewModelProvider.Factory {
