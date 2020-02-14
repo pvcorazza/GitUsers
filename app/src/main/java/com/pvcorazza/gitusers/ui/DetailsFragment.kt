@@ -40,11 +40,6 @@ class DetailsFragment : Fragment() {
         // Giving the binding access to the DetailsViewModel
         binding.viewModel = viewModel
 
-        // Observe LiveData
-        viewModel.githubUserDetails.observe(this, Observer {
-            binding.githubUserDetails = it
-        })
-
         return binding.root
 
     }

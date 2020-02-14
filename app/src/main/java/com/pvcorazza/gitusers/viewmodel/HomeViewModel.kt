@@ -1,66 +1,28 @@
 package com.pvcorazza.gitusers.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.pvcorazza.gitusers.network.GithubApi
+import androidx.lifecycle.liveData
 import com.pvcorazza.gitusers.network.GithubProperty
-import com.pvcorazza.gitusers.utils.GithubApiStatus
-import kotlinx.coroutines.CoroutineScope
+import com.pvcorazza.gitusers.repository.GithubRepository
+import com.pvcorazza.gitusers.utils.Resource
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
 
 // ViewModel class with livedata
 class HomeViewModel : ViewModel() {
 
-    /* Variables for data binding */
-    private val _status = MutableLiveData<GithubApiStatus>()
-    val status: LiveData<GithubApiStatus>
-        get() = _status
+    val repository : GithubRepository = GithubRepository()
 
     private lateinit var githubListResult: List<GithubProperty>
 
-    private val _githubProperties = MutableLiveData<List<GithubProperty>>()
-    val githubProperties: LiveData<List<GithubProperty>>
-        get() = _githubProperties
-
-    // Job for coroutine
-    private var viewModelJob = Job()
-    // New coroutine
-    private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
-
-    // Fetch data on start
-    init {
-        _status.value = GithubApiStatus.LOADING
-        getGithubRealStateProperties()
-    }
-
-    // Get async data from JSON
-    private fun getGithubRealStateProperties() {
-        coroutineScope.launch {
-
-            val getGithubPropertiesDeferred = GithubApi.retrofitService.getGithubProperties()
-
-            try {
-                githubListResult = getGithubPropertiesDeferred.await().distinctBy { it.id }
-                _status.value = GithubApiStatus.DONE
-                _githubProperties.value = githubListResult
-                Log.d("PROPERTIES", githubListResult.toString())
-
-            } catch (e: Exception) {
-                e.printStackTrace()
-                _status.value = GithubApiStatus.ERROR
-                _githubProperties.value = ArrayList()
-            }
+    val githubProperties = liveData(Dispatchers.IO) {
+        emit(Resource.loading())
+        val response = repository.getGithubProperties()
+        if (response.isSuccessful) {
+            emit(Resource.success(response.body()))
+        } else {
+            emit(Resource.error(response.message()))
         }
     }
-
-    // Cancel job at end
-    override fun onCleared() {
-        super.onCleared()
-        viewModelJob.cancel()
-    }
-
 }
