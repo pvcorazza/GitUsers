@@ -6,6 +6,7 @@
     <data>
 
         <import type="com.pvcorazza.gitusers.utils.Status" />
+
         <import type="android.view.View" />
 
         <variable

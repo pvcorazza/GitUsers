@@ -1,7 +1,5 @@
 package com.pvcorazza.gitusers.viewmodel
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
 import com.pvcorazza.gitusers.network.GithubProperty
@@ -12,7 +10,7 @@ import kotlinx.coroutines.Dispatchers
 // ViewModel class with livedata
 class HomeViewModel : ViewModel() {
 
-    val repository : GithubRepository = GithubRepository()
+    val repository: GithubRepository = GithubRepository()
 
     private lateinit var githubListResult: List<GithubProperty>
 

@@ -5,8 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import com.pvcorazza.gitusers.databinding.FragmentDetailsBinding
 import com.pvcorazza.gitusers.viewmodel.DetailsViewModel
 import com.pvcorazza.gitusers.viewmodel.DetailsViewModelFactory
@@ -14,6 +13,7 @@ import com.pvcorazza.gitusers.viewmodel.DetailsViewModelFactory
 /**
  * Fragment for the opening screen
  */
+
 class DetailsFragment : Fragment() {
 
     override fun onCreateView(
@@ -27,7 +27,7 @@ class DetailsFragment : Fragment() {
         val id = arguments?.let { DetailsFragmentArgs.fromBundle(it).id }
 
         // Initialize a ViewModel
-        val viewModel = ViewModelProviders.of(this, DetailsViewModelFactory(id!!)).get(
+        val viewModel = ViewModelProvider(this, DetailsViewModelFactory(id!!)).get(
             DetailsViewModel::class.java
         )
 
