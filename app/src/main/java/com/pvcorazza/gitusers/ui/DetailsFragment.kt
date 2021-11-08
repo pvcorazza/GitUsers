@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.navArgs
 import com.pvcorazza.gitusers.databinding.FragmentDetailsBinding
 import com.pvcorazza.gitusers.viewmodel.DetailsViewModel
 import com.pvcorazza.gitusers.viewmodel.DetailsViewModelFactory
@@ -16,6 +17,8 @@ import com.pvcorazza.gitusers.viewmodel.DetailsViewModelFactory
 
 class DetailsFragment : Fragment() {
 
+    val args: DetailsFragmentArgs by navArgs()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -24,10 +27,10 @@ class DetailsFragment : Fragment() {
         setHasOptionsMenu(true)
 
         // Get "id" from previous fragment
-        val id = arguments?.let { DetailsFragmentArgs.fromBundle(it).id }
+        val id = args.id
 
         // Initialize a ViewModel
-        val viewModel = ViewModelProvider(this, DetailsViewModelFactory(id!!)).get(
+        val viewModel = ViewModelProvider(this, DetailsViewModelFactory(id)).get(
             DetailsViewModel::class.java
         )
 

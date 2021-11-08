@@ -3,4 +3,5 @@
     <string name="repositories">Repositórios</string>
     <string name="following">Seguindo</string>
     <string name="followers">Seguidores</string>
+    <string name="error_msg">Erro ao carregar as informações</string>
 </resources>

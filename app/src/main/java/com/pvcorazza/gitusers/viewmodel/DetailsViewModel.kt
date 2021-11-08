@@ -1,30 +1,48 @@
 package com.pvcorazza.gitusers.viewmodel
 
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.liveData
+import androidx.lifecycle.*
+import com.pvcorazza.gitusers.network.GithubUserDetails
 import com.pvcorazza.gitusers.repository.GithubRepository
-import com.pvcorazza.gitusers.utils.Resource
+import com.pvcorazza.gitusers.utils.ResponseEmpty
+import com.pvcorazza.gitusers.utils.ResponseError
+import com.pvcorazza.gitusers.utils.ResponseSuccess
+import com.pvcorazza.gitusers.utils.Status
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 // ViewModel class with livedata
 class DetailsViewModel(id: Int) : ViewModel() {
 
-    val repository: GithubRepository = GithubRepository()
+    private val repository: GithubRepository = GithubRepository()
 
-    val githubUserDetails = liveData(Dispatchers.IO) {
-        emit(Resource.loading())
-        val response = repository.getGithubUserDetails(id)
-        if (response.isSuccessful) {
-            emit(Resource.success(response.body()))
-        } else {
-            emit(Resource.error(response.message()))
+    private val _githubUserDetails: MutableLiveData<GithubUserDetails?> = MutableLiveData()
+    val githubUserDetails: LiveData<GithubUserDetails?> = _githubUserDetails
+
+    private val _loadingGithubUserDetails: MutableLiveData<Status> = MutableLiveData()
+    val loadingGithubUserDetails: LiveData<Status> = _loadingGithubUserDetails
+
+    val loadGithubUserDetails = viewModelScope.launch {
+
+        _loadingGithubUserDetails.value = Status.LOADING
+
+        val response = withContext(Dispatchers.IO) {
+            repository.getGithubUserDetails(id)
         }
+
+        when (response) {
+            is ResponseSuccess -> {
+                _githubUserDetails.value = response.body
+                _loadingGithubUserDetails.value = Status.SUCCESS
+            }
+            is ResponseError, is ResponseEmpty -> _loadingGithubUserDetails.value = Status.ERROR
+        }
+
     }
 }
 
 class DetailsViewModelFactory(val id: Int) : ViewModelProvider.Factory {
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return DetailsViewModel(id) as T
     }
 }

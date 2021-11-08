@@ -15,143 +15,150 @@
 
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-
-        <ProgressBar
-            android:id="@+id/status_progress_detail"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:indeterminate="true"
-            android:visibility="@{viewModel.githubUserDetails.status == Status.LOADING ? View.VISIBLE : View.GONE}"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView5" />
-
-        <ImageView
-            android:id="@+id/image"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            android:layout_marginTop="16dp"
-            app:imageUrl="@{viewModel.githubUserDetails.status == Status.SUCCESS ? viewModel.githubUserDetails.data.avatarURL : null}"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:src="@tools:sample/avatars" />
-
-        <TextView
-            android:id="@+id/name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="@{viewModel.githubUserDetails.status == Status.SUCCESS ? viewModel.githubUserDetails.data.name : null}"
-            android:textColor="@android:color/white"
-            android:textSize="20sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/image"
-            tools:text="Name user" />
-
-        <TextView
-            android:id="@+id/type"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:fontFamily="sans-serif-light"
-            android:gravity="center"
-            android:text="@{viewModel.githubUserDetails.status == Status.SUCCESS ? viewModel.githubUserDetails.data.type : null}"
-            android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/name"
-            tools:text="User" />
-
-        <TextView
-            android:id="@+id/tv_followers"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="@{viewModel.githubUserDetails.status == Status.SUCCESS ? Integer.toString(viewModel.githubUserDetails.data.followers) : null}"
-            android:textColor="@android:color/white"
-            android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="@+id/textView3"
-            app:layout_constraintStart_toStartOf="@+id/textView3"
-            app:layout_constraintTop_toBottomOf="@+id/type"
-
-            tools:text="1235" />
-
-        <TextView
-            android:id="@+id/tv_publicRepos"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@{viewModel.githubUserDetails.status == Status.SUCCESS ? Integer.toString(viewModel.githubUserDetails.data.publicRepos) : null}"
-            android:textColor="@android:color/white"
-            android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="@+id/textView2"
-            app:layout_constraintStart_toStartOf="@+id/textView2"
-            app:layout_constraintTop_toTopOf="@+id/tv_following"
-
-            tools:text="14" />
-
-        <TextView
-            android:id="@+id/tv_following"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@{viewModel.githubUserDetails.status == Status.SUCCESS ? Integer.toString(viewModel.githubUserDetails.data.following) : null}"
-            android:textColor="@android:color/white"
-            android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="@+id/textView5"
-            app:layout_constraintStart_toStartOf="@+id/textView5"
-            app:layout_constraintTop_toTopOf="@+id/tv_followers"
-
-            tools:text="745" />
-
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="1dp"
-            android:text="@string/followers"
-            app:layout_constraintEnd_toStartOf="@+id/textView5"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintHorizontal_chainStyle="spread_inside"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_followers" />
+            android:padding="16dp">
 
 
-        <TextView
+            <ProgressBar
+                android:id="@+id/status_progress_detail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:indeterminate="true"
+                android:visibility="@{viewModel.loadingGithubUserDetails == Status.LOADING ? View.VISIBLE : View.GONE}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
-            android:id="@+id/textView5"
-            android:layout_width="wrap_content"
+            <ImageView
+                android:id="@+id/image"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:layout_marginTop="16dp"
+                app:imageUrl="@{viewModel.githubUserDetails.avatarURL}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@tools:sample/avatars" />
 
-            android:layout_height="wrap_content"
-            android:text="@string/following"
-            app:layout_constraintEnd_toEndOf="@+id/name"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="@+id/name"
-            app:layout_constraintTop_toBottomOf="@+id/tv_followers" />
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@{viewModel.githubUserDetails.name}"
+                android:textColor="@android:color/white"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/image"
+                tools:text="Name user" />
 
-        <TextView
+            <TextView
+                android:id="@+id/type"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:fontFamily="sans-serif-light"
+                android:gravity="center"
+                android:text="@{viewModel.githubUserDetails.type}"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/name"
+                tools:text="User" />
 
-            android:id="@+id/textView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:text="@string/repositories"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/textView5"
-            app:layout_constraintTop_toTopOf="@+id/textView5" />
+            <TextView
+                android:id="@+id/tv_followers"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@{viewModel.githubUserDetails.followers.toString()}"
+                android:textColor="@android:color/white"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="@+id/textView3"
+                app:layout_constraintStart_toStartOf="@+id/textView3"
+                app:layout_constraintTop_toBottomOf="@+id/type"
+
+                tools:text="1235" />
+
+            <TextView
+                android:id="@+id/tv_publicRepos"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{viewModel.githubUserDetails.publicRepos.toString()}"
+                android:textColor="@android:color/white"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="@+id/textView2"
+                app:layout_constraintStart_toStartOf="@+id/textView2"
+                app:layout_constraintTop_toTopOf="@+id/tv_following"
+
+                tools:text="14" />
+
+            <TextView
+                android:id="@+id/tv_following"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{viewModel.githubUserDetails.following.toString()}"
+                android:textColor="@android:color/white"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="@+id/textView5"
+                app:layout_constraintStart_toStartOf="@+id/textView5"
+                app:layout_constraintTop_toTopOf="@+id/tv_followers"
+
+                tools:text="745" />
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="1dp"
+                android:text="@string/followers"
+                app:layout_constraintEnd_toStartOf="@+id/textView5"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintHorizontal_chainStyle="spread_inside"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_followers" />
 
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+
+                android:id="@+id/textView5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/following"
+                app:layout_constraintEnd_toEndOf="@+id/name"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="@+id/name"
+                app:layout_constraintTop_toBottomOf="@+id/tv_followers" />
+
+            <TextView
+
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:text="@string/repositories"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/textView5"
+                app:layout_constraintTop_toTopOf="@+id/textView5" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </ScrollView>
 
 
 </layout>
